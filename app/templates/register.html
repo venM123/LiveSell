@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <title>Register - LiveSell</title>
+</head>
+<body>
+
+  <div class="container">
+    <div class="nav">
+      <div class="brand">LiveSell Smart Tracker</div>
+      <div class="navlinks">
+        <a href="/login">Login</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card" style="max-width:620px; margin:18px auto 0;">
+        <h1 class="h1">Create Account</h1>
+        <p class="p">Set up your account to keep data private to your store.</p>
+
+        {% if error %}
+          <div class="notice error">{{ error }}</div>
+          <div style="height:10px;"></div>
+        {% endif %}
+
+        <form method="post" action="/register">
+          <div class="row cols-2">
+            <div>
+              <label>Full Name</label>
+              <input type="text" name="full_name" required>
+            </div>
+            <div>
+              <label>Email</label>
+              <input type="email" name="email" required>
+            </div>
+          </div>
+
+          <div class="row cols-2">
+            <div>
+              <label>Business Name (optional)</label>
+              <input type="text" name="business_name">
+            </div>
+            <div>
+              <label>Phone (optional)</label>
+              <input type="text" name="phone">
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>Password</label>
+              <input type="password" name="password" maxlength="72" required>
+            </div>
+            <button class="btn" type="submit">Create Account</button>
+          </div>
+        </form>
+
+        <div style="margin-top:10px;" class="notice">
+          Already have an account? <a href="/login">Sign in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="notice">
+        Owner: Ai Powered IT FIRM | Founders: @ven miguel | @edsador tuyco | @angelique Marie | @LovelyRiano
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

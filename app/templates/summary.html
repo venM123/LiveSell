@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <title>Session Summary</title>
+</head>
+<body>
+
+  <div class="container">
+    <div class="nav">
+      <div class="brand">LiveSell Smart Tracker</div>
+      <div class="navlinks">
+        <a href="/">Dashboard</a>
+        <a href="/inventory">Inventory</a>
+        <a href="/live">Live</a>
+        <a href="/summary">Summary</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h1 class="h1">Session Summary</h1>
+        <p class="p">Quick snapshot of today’s live. Paid revenue only counts PAID orders.</p>
+
+        <div class="row cols-2" style="margin-top:10px;">
+          <div class="notice">
+            <b>Total Orders:</b> {{ total_orders }}<br>
+            <span style="color:var(--muted);">All statuses combined</span>
+          </div>
+          <div class="notice">
+            <b>Total Revenue (Paid):</b> ₱{{ "%.2f"|format(total_revenue) }}<br>
+            <span style="color:var(--muted);">Counts only PAID</span>
+          </div>
+        </div>
+
+        <div class="row cols-3" style="margin-top:10px;">
+          <div class="notice">
+            <span class="badge paid">PAID</span>
+            <div style="margin-top:8px;"><b>{{ paid_orders }}</b></div>
+          </div>
+
+          <div class="notice">
+            <span class="badge pending">PENDING</span>
+            <div style="margin-top:8px;"><b>{{ pending_orders }}</b></div>
+          </div>
+
+          <div class="notice">
+            <span class="badge cancelled">CANCELLED</span>
+            <div style="margin-top:8px;"><b>{{ cancelled_orders }}</b></div>
+          </div>
+        </div>
+
+        <hr>
+
+        {% if best_seller %}
+          <div class="notice">
+            <b>Best Seller:</b> {{ best_seller[0] }}
+            <span style="color:var(--muted);"> — {{ best_seller[1] }} sold</span>
+          </div>
+        {% else %}
+          <div class="notice">
+            <b>Best Seller:</b> <span style="color:var(--muted);">No orders yet</span>
+          </div>
+        {% endif %}
+
+        <div style="margin-top:12px;">
+          <a class="btn secondary" href="/summary/export.csv">Download Orders CSV</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin:0 0 8px;">Low Stock Alert</h2>
+        <p class="p">Items with stock ≤ 3. These are the “restock me now” products.</p>
+
+        {% if low_stock %}
+          <table class="table">
+            <tr>
+              <th>Product</th>
+              <th>Stock Left</th>
+            </tr>
+            {% for p in low_stock %}
+            <tr>
+              <td>{{ p.name }}</td>
+              <td>
+                {% if p.stock == 0 %}
+                  <span class="badge cancelled">OUT</span>
+                {% elif p.stock <= 3 %}
+                  <span class="badge pending">{{ p.stock }} left</span>
+                {% else %}
+                  {{ p.stock }}
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+        {% else %}
+          <div class="notice">All stocks healthy ✅</div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="notice">
+        Owner: Ai Powered IT FIRM | Founders: @ven miguel | @edsador tuyco | @angelique Marie | @LovelyRiano
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

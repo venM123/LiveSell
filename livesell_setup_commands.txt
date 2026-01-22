@@ -1,0 +1,49 @@
+LIVESELL SETUP COMMANDS
+
+1.  Create project folder mkdir livesell cd livesell
+
+2.  Create virtual environment python -m venv venv
+
+3.  Activate venv
+
+Windows: venv
+
+Mac/Linux: source venv/bin/activate
+
+4.  Upgrade pip python -m pip install –upgrade pip
+
+5.  Install dependencies pip install fastapi uvicorn sqlalchemy jinja2
+    python-multipart passlib bcrypt itsdangerous
+
+6.  Save dependencies pip freeze > requirements.txt
+
+7.  Project folder structure mkdir app mkdir app mkdir app mkdir app
+    mkdir app mkdir app
+
+8.  Create files type nul > app__init__.py type nul > app__init__.py
+
+type nul > app.py type nul > app.py
+
+type nul > app.py type nul > app.py type nul > app.py type nul > app.py
+
+type nul > app.html type nul > app.html type nul > app.html type nul >
+app.html type nul > app.html
+
+type nul > app.css type nul > run.py
+
+9.  Run the app python run.py
+
+10. Open in browser http://127.0.0.1:8000 http://127.0.0.1:8000/docs
+
+11. Clone from GitHub git clone cd livesell python -m venv venv venv pip
+    install -r requirements.txt python run.py
+
+12. Debug commands pip list where python pip install –force-reinstall
+    fastapi uvicorn
+
+13. Stop server CTRL + C
+
+14. Reset database del livesell.db python run.py
+
+15. Git basics git init git add . git commit -m “Initial LiveSell build”
+    git branch -M main git remote add origin git push -u origin main

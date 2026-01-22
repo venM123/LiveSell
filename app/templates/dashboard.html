@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <title>Dashboard - LiveSell</title>
+</head>
+<body>
+
+  <div class="container">
+    <div class="nav">
+      <div class="brand">LiveSell Smart Tracker</div>
+      <div class="navlinks">
+        <a href="/">Dashboard</a>
+        <a href="/inventory">Inventory</a>
+        <a href="/live">Live</a>
+        <a href="/summary">Summary</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h1 class="h1">Dashboard</h1>
+        <p class="p">Quick actions for your live selling workflow.</p>
+
+        <div class="row cols-2">
+          <a class="btn" href="/live">Go to Live Selling</a>
+          <a class="btn secondary" href="/inventory">Manage Inventory</a>
+        </div>
+
+        <div class="row cols-2" style="margin-top:10px;">
+          <a class="btn secondary" href="/summary">View Summary</a>
+          <a class="btn secondary" href="/summary/export.csv">Download Orders CSV</a>
+        </div>
+
+        <hr>
+
+        <div class="notice">
+          <b>MVP Flow:</b> Add products → Start Live → Add “mine” orders → Mark Paid/Cancel → Summary/Export.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin:0 0 8px;">System Status</h2>
+        <p class="p">Simple checks to know things are alive.</p>
+
+        <div class="row">
+          <div class="notice">✅ App running on FastAPI</div>
+          <div class="notice">✅ SQLite database connected</div>
+          <div class="notice">✅ Image uploads saved to <span style="color:var(--text)">/static/uploads</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="notice">
+        Owner: Ai Powered IT FIRM | Founders: @ven miguel | @edsador tuyco | @angelique Marie | @LovelyRiano
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

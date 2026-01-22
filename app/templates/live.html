@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <title>Live Selling - LiveSell</title>
+</head>
+<body>
+<div class="notice">
+  <b>Active Session:</b> #{{ active_session.id }} — {{ active_session.title }}
+</div>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">LiveSell Smart Tracker</div>
+      <div class="navlinks">
+        <a href="/">Dashboard</a>
+        <a href="/inventory">Inventory</a>
+        <a href="/live">Live</a>
+        <a href="/summary">Summary</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h1 class="h1">Live Selling</h1>
+        <p class="p">Add “mine” orders fast while the seller is live.</p>
+
+        <form method="post" action="/live/order/add">
+          <div class="row cols-2">
+            <div>
+              <label>Customer Name</label>
+              <input name="customer_name" required>
+            </div>
+            <div>
+              <label>Product</label>
+              <select name="product_id" required>
+                {% for p in products %}
+                  <option value="{{ p.id }}">{{ p.name }} (stock: {{ p.stock }})</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="row cols-2" style="margin-top:10px;">
+            <div>
+              <label>Qty</label>
+              <input name="qty" type="number" value="1" min="1" required>
+            </div>
+
+            <div style="display:flex; gap:10px; align-items:flex-end;">
+              <button class="btn" type="submit">Add Order</button>
+
+              <!-- If you added /live/end route -->
+              <form method="post" action="/live/end">
+                <button class="btn secondary" type="submit">End Session</button>
+              </form>
+            </div>
+          </div>
+        </form>
+
+        <hr>
+
+        <div class="notice">
+          <b>Rules:</b> Paid keeps stock deducted. Cancel returns stock (if you coded that logic).
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin:0 0 8px;">Quick Links</h2>
+        <div class="row">
+          <a class="btn secondary" href="/inventory">Add/Update Products</a>
+          <a class="btn secondary" href="/summary">View Summary</a>
+          <a class="btn secondary" href="/summary/export.csv">Download CSV</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h2 style="margin:0 0 10px;">Orders</h2>
+
+      <table class="table">
+        <tr>
+          <th>ID</th>
+          <th>Customer</th>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+
+        {% for o in orders %}
+        <tr>
+          <td>{{ o.id }}</td>
+          <td>{{ o.customer_name }}</td>
+          <td>{{ o.product.name }}</td>
+          <td>{{ o.qty }}</td>
+
+          <td>
+            {% if o.status == "PAID" %}
+              <span class="badge paid">PAID</span>
+            {% elif o.status == "CANCELLED" %}
+              <span class="badge cancelled">CANCELLED</span>
+            {% else %}
+              <span class="badge pending">PENDING</span>
+            {% endif %}
+          </td>
+
+          <td>
+            <form method="post" action="/live/order/{{ o.id }}/status" style="display:inline;">
+              <input type="hidden" name="status" value="PAID">
+              <button class="btn small green" type="submit">Mark Paid</button>
+            </form>
+
+            <form method="post" action="/live/order/{{ o.id }}/status" style="display:inline;">
+              <input type="hidden" name="status" value="CANCELLED">
+              <button class="btn small red" type="submit">Cancel</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="notice">
+        Owner: Ai Powered IT FIRM | Founders: @ven miguel | @edsador tuyco | @angelique Marie | @LovelyRiano
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
